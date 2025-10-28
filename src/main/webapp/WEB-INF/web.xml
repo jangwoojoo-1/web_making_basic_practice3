@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <!--    스프링의 루트 애플리케이션 컨텍스트에 로딩할 설정 파일을 지정-->
+    <!--    contextConfigLocation : Spring이 인식하는 예약어
+    -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/spring/root-context.xml</param-value>
+    </context-param>
+    <!--
+        Application Context가 웹 어플리케이션에서 동작하려면
+        웹 어플리케이션이 실행될 때 스프링을 로딩하여 해당 웹 어플리케이션 내부에
+        스프링의 Application Context를 생성하는 작업이 필요하다.
+        이를 위해 web.xml 을 이용하여 리스너 설정을 한다.
+        -->
+    <!--    listener:
+            ContextLoaderListener는 웹 애플리케이션이 시작될 때 Spring의 ApplicationContext를 초기화해주는 리스너
+            이 리스너가 있어야 위에서 지정한 root-context.xml이 실제로 로딩됨
+            이 컨텍스트는 보통 서비스, DAO, 트랜잭션 설정 등 전역 Bean들을 정의하는 데 사용됨
+
+            🧠 전체 흐름 요약
+            - WAS(Tomcat 등)가 웹 애플리케이션을 시작함
+            - ContextLoaderListener가 동작하면서 contextConfigLocation에서 지정한 XML 파일을 읽음
+            - root-context.xml에 정의된 Bean들이 초기화됨
+            - 이후 DispatcherServlet 등에서 이 루트 컨텍스트를 공유하거나 상속받아 사용
+
+    -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+</web-app>
