@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @Log4j2
@@ -21,15 +22,15 @@ public class MemberController {
     public void insert(){
         log.info("insert 기능 호출, 입력 창 이동");
     }
+
     @PostMapping("/insert")
-    public String insertResult(MemberDTO memberDTO, Model model){
-        log.info(memberDTO);
+    public String insert(MemberDTO memberDTO, RedirectAttributes rttr) { // ⬅️ 1. Model 대신 RedirectAttributes 사용
         if(memberService.save(memberDTO)){
-            model.addAttribute("message", "입력 성공");
+            rttr.addFlashAttribute("message", "입력 성공");
         } else{
-            model.addAttribute("message", "입력 실패");
+            rttr.addFlashAttribute("message", "입력 실패");
         }
-        return "/list";
+        return "redirect:/list";
     }
 
     @GetMapping("/list")

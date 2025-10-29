@@ -17,10 +17,12 @@
             <li>아이디: ${dto.getMid()}&nbsp;비밀번호: ${dto.getMpw()}&nbsp;이름: ${dto.getMname()}</li>
         </c:forEach>
     </ul>
-    <script>
-        window.onload(() => {
-           alert(${message});
-        });
-    </script>
+    <c:if test="${message != null}">
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                alert('${message}');
+            });
+        </script>
+    </c:if>
 </body>
 </html>

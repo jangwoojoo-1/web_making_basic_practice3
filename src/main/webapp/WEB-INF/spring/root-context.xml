@@ -38,11 +38,6 @@
     <!-- @Transactional 활성화 -->
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
-<!--    마이 바티스를 사용하기 위해서는 build.gradle에 spring-tx, spring-jdbc, mybatis, mybatis:spring 이 필요-->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <!--        mappers 폴더 밑에 폴더가 있어도 상관없고 mappers/**/
